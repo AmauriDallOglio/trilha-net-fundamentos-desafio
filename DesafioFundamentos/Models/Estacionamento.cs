@@ -12,36 +12,45 @@ namespace DesafioFundamentos.Models
             this.precoPorHora = precoPorHora;
         }
 
-        public void AdicionarVeiculo()
+        /// <summary>
+        // // TODO: Pedir para o usuário digitar uma placa (ReadLine) e adicionar na lista "veiculos"
+        /// </summary>
+        /// <param name="es"></param>
+        /// <returns></returns>
+        public Estacionamento AdicionarVeiculo(Estacionamento es)
         {
-            // TODO: Pedir para o usuário digitar uma placa (ReadLine) e adicionar na lista "veiculos"
-            // *IMPLEMENTE AQUI*
             Console.WriteLine("Digite a placa do veículo para estacionar:");
+            string placa = Console.ReadLine();
+            es.veiculos.Add(placa);
+            int contador = es.veiculos.Count();
+            Console.WriteLine($"A placa digitada foi: {placa}");
+            Console.WriteLine($"Existem: {contador} veículos");
+            return es;
         }
 
-        public void RemoverVeiculo()
+        /// <summary>
+        /// Pedir para o usuário digitar a placa e armazenar na variável placa
+        /// Verifica se o veículo existe
+        /// TODO: Pedir para o usuário digitar a quantidade de horas que o veículo permaneceu estacionado,
+        /// TODO: Realizar o seguinte cálculo: "precoInicial + precoPorHora * horas" para a variável valorTotal  
+        /// TODO: Remover a placa digitada da lista de veículos
+        /// </summary>
+        /// <param name="es"></param>
+        public void RemoverVeiculo(Estacionamento es)
         {
             Console.WriteLine("Digite a placa do veículo para remover:");
-
-            // Pedir para o usuário digitar a placa e armazenar na variável placa
-            // *IMPLEMENTE AQUI*
-            string placa = "";
-
-            // Verifica se o veículo existe
+            string placa = Console.ReadLine();
             if (veiculos.Any(x => x.ToUpper() == placa.ToUpper()))
             {
                 Console.WriteLine("Digite a quantidade de horas que o veículo permaneceu estacionado:");
+                int horas = Convert.ToInt32(Console.ReadLine());
+                
+                decimal valorTotal = es.precoInicial + es.precoPorHora * horas;
 
-                // TODO: Pedir para o usuário digitar a quantidade de horas que o veículo permaneceu estacionado,
-                // TODO: Realizar o seguinte cálculo: "precoInicial + precoPorHora * horas" para a variável valorTotal                
-                // *IMPLEMENTE AQUI*
-                int horas = 0;
-                decimal valorTotal = 0; 
-
-                // TODO: Remover a placa digitada da lista de veículos
-                // *IMPLEMENTE AQUI*
-
-                Console.WriteLine($"O veículo {placa} foi removido e o preço total foi de: R$ {valorTotal}");
+                es.veiculos.Remove(placa);
+                int contador = es.veiculos.Count();
+                Console.WriteLine($"O veículo {placa} foi removido e o preço total foi de: R$ {valorTotal} ");
+                Console.WriteLine($"Existem: {contador} veículos");
             }
             else
             {
@@ -49,14 +58,24 @@ namespace DesafioFundamentos.Models
             }
         }
 
-        public void ListarVeiculos()
+        /// <summary>
+        /// Verifica se há veículos no estacionamento
+        /// Realizar um laço de repetição, exibindo os veículos estacionados
+        /// </summary>
+        /// <param name="es"></param>
+        public void ListarVeiculos(Estacionamento es)
         {
-            // Verifica se há veículos no estacionamento
-            if (veiculos.Any())
+            if (es.veiculos.Any())
             {
                 Console.WriteLine("Os veículos estacionados são:");
-                // TODO: Realizar um laço de repetição, exibindo os veículos estacionados
-                // *IMPLEMENTE AQUI*
+
+                int contador = 0;
+                foreach (var item in es.veiculos.ToList())
+                {
+                    contador++;
+                    Console.WriteLine($"Placas: {item} ");
+                }
+                Console.WriteLine($"Existem: {contador} veículos");
             }
             else
             {
